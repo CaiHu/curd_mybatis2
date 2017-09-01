@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.mapper.TicketMapper">
+	<resultMap type="Ticket" id="MapTicket">
+		<id property="ticketId" column="ticketId"/>
+		<result property="ticketAddress" column="ticketAddress"/>
+		<result property="ticketPrice" column="ticketPrice"/>
+		<association property="customer" javaType="Customer">
+			<id column="customerId" property="customerId"/>  
+            <result column="customerName" property="customerName"/>  
+            <result column="customerTel" property="customerTel"/>  
+		</association>
+	</resultMap>
+	
+	<select id="getTicket" parameterType="int" resultMap="MapTicket">
+		select c.*,t.* from t_customer c,t_ticket t  where  c.customerId=t.ticketCId and t.ticketId =#{ticketId}
+	</select>
+
+
+
+
+</mapper>
